@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8' />
+    <title> 3D Navigation Zone </title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.48.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.48.0/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id='map'></div>
+    <script>
+      //  var rootFolder = 'http://localhost/droneNavigation/heightMapper/';
+        var rootFolder = '/3dnav/';
+        mapboxgl.accessToken = 'pk.eyJ1IjoibmFnYXJhamIiLCJhIjoiY2psZDVtazc1MDdzczNxbzNpdGlsd2J6NSJ9.lkZRPE4nrLXDu7YmVXv9WA';
+
+        var LAT = 12.9715987;
+        var LONG = 77.5945627;
+
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/light-v9',
+            center: [LONG, LAT],
+            zoom: 14.99,
+            pitch: 60,
+            bearing: 20
+        });
+
+
+        map.on('load', function () {
+            map.addLayer({
+                'id': 'droneZone0',
+                'type': 'fill-extrusion',
+                'source': {
+                    'type': 'geojson',
+                    'data': rootFolder + 'height2.geojson'
+                },
+                'paint': {
+                    'fill-extrusion-color': ['get', 'color'],
+                    'fill-extrusion-height': ['get', 'height'],
+                    'fill-extrusion-base': ['get', 'base_height'],
+                    'fill-extrusion-opacity': 1.0
+                }
+            });
+
+            map.addLayer({
+                'id': 'droneZone1',
+                'type': 'fill-extrusion',
+                'source': {
+                    'type': 'geojson',
+                    'data': rootFolder + 'height3.geojson'
+                },
+                'paint': {
+                    'fill-extrusion-color': ['get', 'color'],
+                    'fill-extrusion-height': ['get', 'height'],
+                    'fill-extrusion-base': ['get', 'base_height'],
+                    'fill-extrusion-opacity': 1.0
+                }
+            });
+
+            map.addLayer({
+                'id': 'droneZone2',
+                'type': 'fill-extrusion',
+                'source': {
+                    'type': 'geojson',
+                    'data': rootFolder + 'height4.geojson'
+                },
+                'paint': {
+                    'fill-extrusion-color': ['get', 'color'],
+                    'fill-extrusion-height': ['get', 'height'],
+                    'fill-extrusion-base': ['get', 'base_height'],
+                    'fill-extrusion-opacity': 0.8
+                }
+            });
+
+
+            map.addLayer({
+                'id': 'droneZone3',
+                'type': 'fill-extrusion',
+                'source': {
+                    'type': 'geojson',
+                    'data': rootFolder + 'height5.geojson'
+                },
+                'paint': {
+                    'fill-extrusion-color': ['get', 'color'],
+                    'fill-extrusion-height': ['get', 'height'],
+                    'fill-extrusion-base': ['get', 'base_height'],
+                    'fill-extrusion-opacity': 0.4
+                }
+            });
+
+        });
+    </script>
+
+</body>
+
+</html>
